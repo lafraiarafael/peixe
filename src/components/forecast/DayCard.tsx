@@ -23,45 +23,63 @@ export function DayCard({ day }: { day: ForecastDay }) {
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
-        className="flex w-full items-center gap-3 sm:gap-4 p-4 sm:p-5 text-left hover:bg-muted/30 transition-colors"
+        className="flex w-full flex-col gap-2 p-4 sm:p-5 text-left hover:bg-muted/30 transition-colors"
       >
-        <div className="flex flex-col items-center w-14 shrink-0">
-          <span className="text-xs uppercase text-muted-foreground font-medium">{weekday}</span>
-          <span className="text-lg font-bold tabular-nums leading-tight">{dayNum}</span>
-          <span className="text-[11px] text-muted-foreground">{month}</span>
+        <div className="flex w-full items-center gap-3 sm:gap-4">
+          <div className="flex flex-col items-center w-14 shrink-0">
+            <span className="text-xs uppercase text-muted-foreground font-medium">{weekday}</span>
+            <span className="text-lg font-bold tabular-nums leading-tight">{dayNum}</span>
+            <span className="text-[11px] text-muted-foreground">{month}</span>
+          </div>
+
+          <WeatherIcon code={day.weatherCode} className="size-7 shrink-0 text-muted-foreground" />
+
+          <div className="hidden sm:flex flex-col text-xs text-muted-foreground w-24 shrink-0">
+            <span>{weatherInfo.label}</span>
+          </div>
+
+          <div className="flex items-center gap-1 text-sm tabular-nums shrink-0">
+            <span className="font-semibold">{Math.round(day.temperatureMax)}°</span>
+            <span className="text-muted-foreground">/{Math.round(day.temperatureMin)}°</span>
+          </div>
+
+          <div className="hidden sm:flex items-center gap-3 text-xs text-muted-foreground shrink-0">
+            <span className="flex items-center gap-1">
+              <Gauge className="size-3.5" />
+              {Math.round(midday.weather.pressureMsl)}hPa
+            </span>
+            <span className="flex items-center gap-1">
+              <Wind className="size-3.5" />
+              {Math.round(midday.weather.windSpeed)}km/h
+            </span>
+            <span className="flex items-center gap-1">
+              <MoonIcon className="size-3.5" />
+              {Math.round(day.astronomy.moonIllumination * 100)}%
+            </span>
+          </div>
+
+          <div className="ml-auto flex items-center gap-2 sm:gap-3">
+            <RatingBadge rating={day.bestRating} score={day.bestScore} />
+            <ChevronDown
+              className={cn("size-4 text-muted-foreground transition-transform", expanded && "rotate-180")}
+            />
+          </div>
         </div>
 
-        <WeatherIcon code={day.weatherCode} className="size-7 shrink-0 text-muted-foreground" />
-
-        <div className="hidden xs:flex sm:hidden md:flex flex-col text-xs text-muted-foreground w-24 shrink-0">
+        <div className="flex sm:hidden flex-wrap items-center gap-x-3 gap-y-1 pl-[4.5rem] text-[0.7rem] text-muted-foreground">
           <span>{weatherInfo.label}</span>
-        </div>
-
-        <div className="flex items-center gap-1 text-sm tabular-nums shrink-0">
-          <span className="font-semibold">{Math.round(day.temperatureMax)}°</span>
-          <span className="text-muted-foreground">/{Math.round(day.temperatureMin)}°</span>
-        </div>
-
-        <div className="hidden sm:flex items-center gap-3 text-xs text-muted-foreground shrink-0">
           <span className="flex items-center gap-1">
-            <Gauge className="size-3.5" />
+            <Gauge className="size-3" />
             {Math.round(midday.weather.pressureMsl)}hPa
           </span>
           <span className="flex items-center gap-1">
-            <Wind className="size-3.5" />
+            <Wind className="size-3" />
             {Math.round(midday.weather.windSpeed)}km/h
           </span>
           <span className="flex items-center gap-1">
-            <MoonIcon className="size-3.5" />
+            <MoonIcon className="size-3" />
             {Math.round(day.astronomy.moonIllumination * 100)}%
           </span>
-        </div>
-
-        <div className="ml-auto flex items-center gap-2 sm:gap-3">
-          <RatingBadge rating={day.bestRating} score={day.bestScore} />
-          <ChevronDown
-            className={cn("size-4 text-muted-foreground transition-transform", expanded && "rotate-180")}
-          />
         </div>
       </button>
 

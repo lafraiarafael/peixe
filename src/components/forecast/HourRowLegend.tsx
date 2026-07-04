@@ -6,7 +6,7 @@ export function HourRowLegend() {
       <span className="w-9 sm:w-11 shrink-0">Hora</span>
       <span className="size-4 shrink-0" aria-hidden />
       <span className="w-9 sm:w-11 shrink-0">Temp</span>
-      <span className="w-7 sm:w-16 shrink-0 flex justify-end sm:justify-start">
+      <span className="w-10 sm:w-16 shrink-0 flex justify-end sm:justify-start">
         <Wind className="size-3 sm:hidden" />
         <span className="hidden sm:inline">Vento</span>
       </span>

@@ -31,8 +31,8 @@ export function HourRow({ hour }: { hour: ForecastHour }) {
         <span className="w-9 sm:w-11 shrink-0 text-xs sm:text-sm tabular-nums">
           {Math.round(hour.weather.temperature)}°
         </span>
-        <span className="w-7 sm:w-16 shrink-0 text-xs text-muted-foreground tabular-nums text-right sm:text-left">
-          <span className="sm:hidden">{Math.round(hour.weather.windSpeed)}</span>
+        <span className="w-10 sm:w-16 shrink-0 text-xs text-muted-foreground tabular-nums text-right sm:text-left">
+          <span className="sm:hidden">{Math.round(hour.weather.windSpeed)}km</span>
           <span className="hidden sm:inline">{Math.round(hour.weather.windSpeed)} km/h</span>
         </span>
         <span className="w-9 sm:w-14 shrink-0 text-xs text-muted-foreground tabular-nums text-right sm:text-left">
