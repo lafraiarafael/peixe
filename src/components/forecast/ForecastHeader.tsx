@@ -1,10 +1,14 @@
 import { Clock, Database, ShieldCheck, Waves } from "lucide-react";
 import type { CityForecast } from "@/types";
 import { UpdatedAgo } from "@/components/forecast/UpdatedAgo";
+import { timeOfDayLabel } from "@/utils/time";
 
 export function ForecastHeader({ forecast }: { forecast: CityForecast }) {
   const { fetchedAt, sources, reliability, city } = forecast;
-  const updatedTime = fetchedAt.slice(11, 16);
+  // fetchedAt is a UTC instant — must be converted to the city's own timezone,
+  // never displayed raw (Zaandam runs Europe/Amsterdam, the Brazilian cities
+  // run America/Sao_Paulo, and those differ by several hours).
+  const updatedTime = timeOfDayLabel(fetchedAt, city.timezone);
 
   const sourceLabel = [sources.weather, sources.tide].filter(Boolean).join(" + ");
 
