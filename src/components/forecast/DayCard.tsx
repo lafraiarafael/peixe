@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { RatingBadge } from "@/components/forecast/RatingBadge";
 import { WeatherIcon } from "@/components/forecast/WeatherIcon";
 import { HourRow } from "@/components/forecast/HourRow";
+import { HourRowLegend } from "@/components/forecast/HourRowLegend";
 import { getWeatherCodeInfo } from "@/lib/weatherCodes";
 import { representativeHour } from "@/lib/forecastUtils";
 import { cn } from "@/lib/utils";
@@ -85,6 +86,7 @@ export function DayCard({ day }: { day: ForecastDay }) {
             )}
           </div>
           <div>
+            <HourRowLegend />
             {day.hours.map((hour) => (
               <HourRow key={hour.time} hour={hour} />
             ))}
