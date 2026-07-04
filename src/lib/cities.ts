@@ -41,6 +41,17 @@ export const CITIES: City[] = [
     timezone: "America/Sao_Paulo",
     hasTide: false,
   },
+  {
+    id: "telemaco-borba",
+    name: "Telêmaco Borba",
+    flag: "🇧🇷",
+    country: "BR",
+    countryName: "Brasil",
+    latitude: -24.3239,
+    longitude: -50.6156,
+    timezone: "America/Sao_Paulo",
+    hasTide: false,
+  },
 ];
 
 export function getCityById(id: string): City | undefined {
