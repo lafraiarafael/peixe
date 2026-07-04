@@ -8,7 +8,7 @@ export interface RatingInfo {
   textClass: string;
 }
 
-/** 0-45 Ruim (🟥) · 46-69 Regular (🟨) · 70-89 Bom (🟩) · 90-100 Ótimo (🟦) */
+/** 0-50 Ruim (🟥) · 51-79 Regular (🟨) · 80-94 Bom (🟩) · 95-100 Ótimo (🟦) */
 export const RATING_INFO: Record<FishingRating, RatingInfo> = {
   ruim: {
     label: "Ruim",
