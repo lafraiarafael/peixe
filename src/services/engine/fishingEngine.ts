@@ -43,11 +43,11 @@ const FACTOR_LABELS: Record<FactorKey, string> = {
   tide: "Maré",
 };
 
-/** 0-25 Ruim · 26-50 Regular · 51-75 Bom · 76-100 Ótimo */
+/** 0-45 Ruim · 46-69 Regular · 70-89 Bom · 90-100 Ótimo */
 function ratingFromScore(score: number): FishingRating {
-  if (score <= 25) return "ruim";
-  if (score <= 50) return "regular";
-  if (score <= 75) return "bom";
+  if (score <= 45) return "ruim";
+  if (score <= 69) return "regular";
+  if (score <= 89) return "bom";
   return "otimo";
 }
 
