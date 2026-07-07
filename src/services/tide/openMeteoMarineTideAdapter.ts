@@ -9,16 +9,36 @@ interface MarineResponse {
   };
 }
 
+/**
+ * `sea_level_height_msl` is a modeled value that layers wind/wave/pressure
+ * effects on top of the actual astronomical tide, so the raw hourly series
+ * is noisy — naive hour-to-hour extrema detection was flagging every small
+ * wiggle as a tide turn (e.g. 8 "highs/lows" in a single day on a coast that
+ * physically has a semidiurnal, ~2-high/2-low pattern). A centered 5-hour
+ * moving average smooths out that short-period noise while preserving the
+ * much slower (~12h25m) tidal cycle, before extrema are detected on it.
+ */
+function smooth(hours: TideHour[], window = 5): number[] {
+  const half = Math.floor(window / 2);
+  return hours.map((_, i) => {
+    const lo = Math.max(0, i - half);
+    const hi = Math.min(hours.length, i + half + 1);
+    const slice = hours.slice(lo, hi);
+    return slice.reduce((sum, h) => sum + h.height, 0) / slice.length;
+  });
+}
+
 function findExtremes(hours: TideHour[]): TideExtreme[] {
+  const smoothed = smooth(hours);
   const extremes: TideExtreme[] = [];
   for (let i = 1; i < hours.length - 1; i++) {
-    const prev = hours[i - 1].height;
-    const curr = hours[i].height;
-    const next = hours[i + 1].height;
+    const prev = smoothed[i - 1];
+    const curr = smoothed[i];
+    const next = smoothed[i + 1];
     if (curr >= prev && curr >= next && curr > prev) {
-      extremes.push({ time: hours[i].time, height: curr, type: "high" });
+      extremes.push({ time: hours[i].time, height: hours[i].height, type: "high" });
     } else if (curr <= prev && curr <= next && curr < prev) {
-      extremes.push({ time: hours[i].time, height: curr, type: "low" });
+      extremes.push({ time: hours[i].time, height: hours[i].height, type: "low" });
     }
   }
   return extremes;
