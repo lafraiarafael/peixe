@@ -26,22 +26,7 @@ import {
   windFactor,
   type FactorResult,
 } from "./factors";
-import { getEffectiveWeights, type FactorKey } from "./weights";
-
-const FACTOR_LABELS: Record<FactorKey, string> = {
-  pressure: "Pressão",
-  wind: "Vento",
-  temperature: "Temperatura",
-  precipitation: "Chuva",
-  cloudCover: "Nebulosidade",
-  humidity: "Umidade",
-  dewPoint: "Ponto de orvalho",
-  moonPhase: "Fase lunar",
-  moonProximity: "Proximidade lunar",
-  sunProximity: "Nascer/pôr do sol",
-  season: "Estação",
-  tide: "Maré",
-};
+import { FACTOR_LABELS, getEffectiveWeights, type FactorKey } from "./weights";
 
 /** 0-50 Ruim · 51-79 Regular · 80-94 Bom · 95-100 Ótimo */
 function ratingFromScore(score: number): FishingRating {

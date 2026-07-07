@@ -5,6 +5,7 @@ import { getCityById } from "@/lib/cities";
 import { getForecastForCity } from "@/services/dataProvider";
 import { ForecastHeader } from "@/components/forecast/ForecastHeader";
 import { ForecastView } from "@/components/forecast/ForecastView";
+import { ScoreInfoDialog } from "@/components/forecast/ScoreInfoDialog";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { Button } from "@/components/ui/button";
 
@@ -36,7 +37,10 @@ export default async function ForecastPage({
             </Link>
           }
         />
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          <ScoreInfoDialog />
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className="space-y-1">

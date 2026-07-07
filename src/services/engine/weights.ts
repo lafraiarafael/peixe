@@ -20,6 +20,37 @@ export const FACTOR_WEIGHTS = {
 
 export type FactorKey = keyof typeof FACTOR_WEIGHTS;
 
+export const FACTOR_LABELS: Record<FactorKey, string> = {
+  pressure: "Pressão",
+  wind: "Vento",
+  temperature: "Temperatura",
+  precipitation: "Chuva",
+  cloudCover: "Nebulosidade",
+  humidity: "Umidade",
+  dewPoint: "Ponto de orvalho",
+  moonPhase: "Fase lunar",
+  moonProximity: "Proximidade lunar",
+  sunProximity: "Proximidade do sol",
+  season: "Estação",
+  tide: "Maré",
+};
+
+/** Short "what it looks at" description shown in the score-methodology dialog. */
+export const FACTOR_DESCRIPTIONS: Record<FactorKey, string> = {
+  pressure: "nível absoluto (1013-1025 hPa = ideal) + estabilidade/tendência nas últimas 3h",
+  wind: 'velocidade "doce" 2-20 km/h ideal + penalidade por rajadas',
+  tide: "velocidade de movimento da água + proximidade da virada (alta/baixa)",
+  precipitation: "garoa leve = bônus (estimula alimentação); chuva forte = penalidade pesada",
+  moonPhase: "teoria solunar — lua nova e cheia são os picos",
+  temperature: "conforto térmico (15-26°C) + baixa variação no dia",
+  cloudCover: 'céu parcialmente encoberto (40-85%) é o "clássico dia de peixe"',
+  sunProximity: 'bônus perto do nascer/pôr do sol (período solunar "maior")',
+  moonProximity: 'bônus perto do nascer/pôr da lua (período solunar "menor")',
+  humidity: "50-90% é o ideal",
+  dewPoint: "amplitude pequena = ar estável",
+  season: "bônus leve em estações de transição — heurística grosseira, não calibrada por espécie/região",
+};
+
 const TOTAL_WITH_TIDE = Object.values(FACTOR_WEIGHTS).reduce((a, b) => a + b, 0); // 100
 
 /**
